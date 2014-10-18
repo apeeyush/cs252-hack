@@ -3,7 +3,20 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'pages#main'
 
-  devise_for :users
+  # devise_for :users
+
+  devise_for :users, skip: :registrations
+  devise_scope :user do
+    resource :registration,
+      only: [:new, :create, :edit, :update],
+      path: 'users',
+      path_names: { new: 'sign_up' },
+      controller: 'devise/registrations',
+      as: :user_registration do
+        get :cancel
+      end
+  end
+
   get 'pages/main'
 
   resources :assets

@@ -3,9 +3,14 @@
     <h2>Welcome to Dropbox</h2>
     <% if user_signed_in? %>
       <p class="lead">Welcome <%= current_user.email %></p>
+      <a class="btn btn-default" href="/assets" role="button">Dropbox</a>
+      <a class="btn btn-default" href="/users/edit" role="button">Reset Password</a>
     <% else %>
 	    <p>Dropbox is a sophisticated file sharing and syncing service.</p>
-	    <p>Your data is safe with us (Unlike the other Dropbox)! So just Sign Up and enjoy unlimited free data service.</p>
+	    <p>Your data is safe with us (Unlike the other Dropbox)!</p>
+	    <p>So just Sign Up and enjoy unlimited free data service.</p>
+      <a class="btn btn-default" href="/users/sign_up" role="button">Sign Up</a>
+      <a class="btn btn-default" href="/users/sign_in" role="button">Sign In</a>
     <% end %>
   </div>
 </div>
