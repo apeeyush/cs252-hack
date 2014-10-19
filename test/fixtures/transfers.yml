@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  amount: 9.99
+  to_user: 1
+  to_email: MyString
+
+two:
+  user_id: 
+  amount: 9.99
+  to_user: 1
+  to_email: MyString

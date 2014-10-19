@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
 
-  before_action :authenticate_user!, only: [:banking, :transfer]
+  before_action :authenticate_user!, only: [:banking, :transfer, :transactions]
   skip_before_filter :verify_authenticity_token, :only => [:banking, :transfer]
 
   def main
@@ -14,16 +14,34 @@ class PagesController < ApplicationController
   	to_email = params[:email]
   	amount = params[:amount].to_i
   	to_user = User.where(email: to_email)
-  	if to_user.count > 0 && amount.is_a?(Integer) && amount >= 0 && amount < current_user.amount
+  	if to_user.count > 0 && params[:amount].to_i.to_s == params[:amount]
   	  to_user = to_user.first
-	  curr_user_new_amount = current_user.amount - amount
-	  to_user_new_amount = to_user.amount + amount
-	  current_user.update(amount: curr_user_new_amount)
-	  to_user.update(amount: to_user_new_amount)
-	  redirect_to pages_banking_path
-	else
-	  redirect_to pages_banking_path
-	end
+  	  if to_user.email != current_user.email  && amount.is_a?(Integer) && amount >= 0 && amount < current_user.amount
+		    curr_user_new_amount = current_user.amount - amount
+		    to_user_new_amount = to_user.amount + amount
+		    current_user.update(amount: curr_user_new_amount)
+		    to_user.update(amount: to_user_new_amount)
+		    new_transfer = current_user.transfers.new
+		    new_transfer.amount = amount
+        new_transfer.to_user = to_user.id
+        new_transfer.to_email = to_user.email
+		    new_transfer.save
+        flash[:success] = "Transfer Successful"
+        redirect_to pages_banking_path
+	    else
+	  	  flash[:error] = "Nigga!! If you stop trespassing now, that would be the end of it. But if you don't, I will look for you, find you and hack your server. Good Luck!"
+		    redirect_to pages_banking_path
+	    end
+	  else
+	    flash[:error] = "Nigga!! If you stop trespassing now, that would be the end of it. But if you don't, I will look for you, find you and hack your server. Good Luck!"
+	    redirect_to pages_banking_path
+	  end
+  end
+
+  def transactions
+  	@money_transferred = current_user.transfers
+    @money_received = Transfer.where(to_user: current_user.id)
+    @users = User.all
   end
 
 end

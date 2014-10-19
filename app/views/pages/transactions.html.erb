@@ -1,0 +1,39 @@
+<h3>Money Transferred</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Amount</th>
+      <th>Account</th>
+      <th>Time</th>
+    </tr>
+  </thead>
+  <tbody>
+	<% @money_transferred.each do |transaction| %>
+      <tr>
+        <td><%= transaction.amount %></td>
+        <td><%= transaction.to_email %></td>
+        <td><%= transaction.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>Money Received</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Amount</th>
+      <th>Account</th>
+      <th>Time</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @money_received.each do |transaction| %>
+      <tr>
+        <td><%= transaction.amount %></td>
+        <td><%= transaction.user.email %></td>
+        <td><%= transaction.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

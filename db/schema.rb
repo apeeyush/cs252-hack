@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141019042441) do
+ActiveRecord::Schema.define(version: 20141019063826) do
 
   create_table "assets", force: true do |t|
     t.integer  "user_id"
@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(version: 20141019042441) do
   end
 
   add_index "assets", ["user_id"], name: "index_assets_on_user_id", using: :btree
+
+  create_table "transfers", force: true do |t|
+    t.integer  "user_id"
+    t.decimal  "amount",     precision: 10, scale: 0
+    t.integer  "to_user"
+    t.string   "to_email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "transfers", ["user_id"], name: "index_transfers_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                                           default: "",   null: false
