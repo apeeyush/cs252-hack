@@ -9,12 +9,14 @@
   </thead>
   <tbody>
 	<% @money_transferred.each do |transaction| %>
+    <% if transaction.to_user != transaction.user.id %>
       <tr>
         <td><%= transaction.amount %></td>
         <td><%= transaction.to_email %></td>
         <td><%= transaction.created_at %></td>
       </tr>
     <% end %>
+  <% end %>
   </tbody>
 </table>
 
@@ -29,11 +31,36 @@
   </thead>
   <tbody>
   <% @money_received.each do |transaction| %>
+    <% if transaction.to_user != transaction.user.id %>
       <tr>
         <td><%= transaction.amount %></td>
         <td><%= transaction.user.email %></td>
         <td><%= transaction.created_at %></td>
       </tr>
     <% end %>
+  <% end %>
+  </tbody>
+</table>
+
+
+<h3>Money Deposited</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Amount</th>
+      <th>Account</th>
+      <th>Time</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @money_received.each do |transaction| %>
+    <% if transaction.to_user == transaction.user.id %>
+      <tr>
+        <td><%= transaction.amount %></td>
+        <td><%= transaction.user.email %></td>
+        <td><%= transaction.created_at %></td>
+      </tr>
+    <% end %>
+  <% end %>
   </tbody>
 </table>

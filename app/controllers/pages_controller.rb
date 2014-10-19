@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
 
-  before_action :authenticate_user!, only: [:banking, :transfer, :transactions]
-  skip_before_filter :verify_authenticity_token, :only => [:banking, :transfer]
+  before_action :authenticate_user!, only: [:banking, :transfer, :transactions, :deposit]
+  skip_before_filter :verify_authenticity_token, :only => [:banking, :transfer, :deposit]
 
   def main
   end
@@ -36,6 +36,24 @@ class PagesController < ApplicationController
 	    flash[:error] = "Nigga!! If you stop trespassing now, that would be the end of it. But if you don't, I will look for you, find you and hack your server. Good Luck!"
 	    redirect_to pages_banking_path
 	  end
+  end
+
+  def deposit
+    amount = params[:amount].to_i
+    if params[:amount].to_i.to_s == params[:amount] && amount.is_a?(Integer) && amount >= 0
+      curr_user_new_amount = current_user.amount + amount
+      current_user.update(amount: curr_user_new_amount)
+      new_transfer = current_user.transfers.new
+      new_transfer.amount = amount
+      new_transfer.to_user = current_user.id
+      new_transfer.to_email = current_user.email
+      new_transfer.save
+      flash[:success] = "Deposit Successful"
+      redirect_to pages_banking_path
+    else
+      flash[:error] = "Nigga!! If you stop trespassing now, that would be the end of it. But if you don't, I will look for you, find you and hack your server. Good Luck!"
+      redirect_to pages_banking_path
+    end
   end
 
   def transactions

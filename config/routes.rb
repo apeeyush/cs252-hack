@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get 'pages/banking'
   post 'pages/transfer'
   get 'pages/transactions'
+  post 'pages/deposit'
 
   resources :assets
 
