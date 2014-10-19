@@ -18,11 +18,13 @@ Rails.application.routes.draw do
   end
 
   get 'pages/main'
+  get 'pages/banking'
+  post 'pages/transfer'
 
   resources :assets
 
   #this route is for file downloads 
-  match "assets/get/:id" => "assets#get", :via => [:get], :as => "download"
+  match "assets/get/:id" => "assets#get", :via => [:get]#, :as => "download"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

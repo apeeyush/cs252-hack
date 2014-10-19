@@ -1,0 +1,33 @@
+<h2>Welcome to MyBank!</h2><br>
+
+<h4>Your current balance is <%= current_user.amount %></h4>
+
+<div class="row">
+  <form action="/pages/transfer" method="post" class="form-horizontal">
+
+    <div class="form-group">
+      <label class="col-md-2 control-label" for="email">Email</label>
+      <div class="col-md-4">
+        <input class="form-control" type="text" id="email" name="email" ></input><br>
+    	</div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-2 control-label" for="amount">Amount</label>
+      <div class="col-md-4">
+        <input class="form-control" type="text" id="amount" name="amount" ></input><br>
+    	</div>
+    </div>
+
+    <div class="form-group">
+    	<input type="submit" value="Transfer">
+  	</div>
+  </form>
+</div>
+
+<h3>List of Account Holders</h3>
+<ul>
+<% @users.each do |user| %>
+	<li><%= user.email %><br></li>
+<% end %>
+</ul>

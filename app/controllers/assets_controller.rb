@@ -9,7 +9,7 @@ class AssetsController < ApplicationController
   end
 
   def show
-    respond_with(@asset)
+    redirect_to assets_path
   end
 
   def new
@@ -26,14 +26,14 @@ class AssetsController < ApplicationController
       send_file asset.uploaded_file.path, :type => asset.uploaded_file_content_type 
     else
       flash[:error] = "If you stop trespassing now, that would be the end of it. But if you don't, I will find you and make all your uploads public. Good Luck!"
-      redirect_to assets_path
+      redirect_to root_url
     end
   end
 
   def create
     @asset = current_user.assets.new(asset_params)
     @asset.save
-    respond_with(@asset)
+    redirect_to assets_path
   end
 
   def update

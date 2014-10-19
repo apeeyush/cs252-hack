@@ -4,6 +4,7 @@
     <% if user_signed_in? %>
       <p class="lead">Welcome <%= current_user.email %></p>
       <a class="btn btn-default" href="/assets" role="button">Dropbox</a>
+      <a class="btn btn-default" href="/pages/banking" role="button">Banking</a>
       <a class="btn btn-default" href="/users/edit" role="button">Reset Password</a>
     <% else %>
 	    <p>Dropbox is a sophisticated file sharing and syncing service.</p>
@@ -11,6 +12,7 @@
 	    <p>So just Sign Up and enjoy unlimited free data service.</p>
       <a class="btn btn-default" href="/users/sign_up" role="button">Sign Up</a>
       <a class="btn btn-default" href="/users/sign_in" role="button">Sign In</a>
+      <a class="btn btn-default" href="/users/password/new" role="button">Forgot Password</a>
     <% end %>
   </div>
 </div>
