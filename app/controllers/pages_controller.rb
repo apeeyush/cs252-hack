@@ -17,17 +17,19 @@ class PagesController < ApplicationController
   	if to_user.count > 0 && params[:amount].to_i.to_s == params[:amount]
   	  to_user = to_user.first
   	  if to_user.email != current_user.email  && amount.is_a?(Integer) && amount >= 0 && amount < current_user.amount
-		    curr_user_new_amount = current_user.amount - amount
-		    to_user_new_amount = to_user.amount + amount
-		    current_user.update(amount: curr_user_new_amount)
-		    to_user.update(amount: to_user_new_amount)
-		    new_transfer = current_user.transfers.new
-		    new_transfer.amount = amount
-        new_transfer.to_user = to_user.id
-        new_transfer.to_email = to_user.email
-		    new_transfer.save
-        flash[:success] = "Transfer Successful"
-        redirect_to pages_banking_path
+        ActiveRecord::Base.transaction do
+  		    curr_user_new_amount = current_user.amount - amount
+  		    to_user_new_amount = to_user.amount + amount
+  		    current_user.update(amount: curr_user_new_amount)
+  		    to_user.update(amount: to_user_new_amount)
+  		    new_transfer = current_user.transfers.new
+  		    new_transfer.amount = amount
+          new_transfer.to_user = to_user.id
+          new_transfer.to_email = to_user.email
+  		    new_transfer.save
+          flash[:success] = "Transfer Successful"
+          redirect_to pages_banking_path
+        end
 	    else
 	  	  flash[:error] = "Nigga!! If you stop trespassing now, that would be the end of it. But if you don't, I will look for you, find you and hack your server. Good Luck!"
 		    redirect_to pages_banking_path

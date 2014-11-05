@@ -19,6 +19,17 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
 
+#   config.action_mailer.delivery_method = :smtp
+#   config.action_mailer.smtp_settings = {
+#     :address              => "mailserver.cs252.cse.iitk.ac.in",
+#     :port                 => 587,
+#     :domain               => 'cs252.cse.iitk.ac.in',
+#     :user_name            => 'prg01user@mailserver.cs252.cse.iitk.ac.in',
+#     :password             => 'rlthmk',
+#     :authentication       => 'plain',
+# #    :enable_starttls_auto => true
+#   }
+
   # Mailer configuration for sending mails
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

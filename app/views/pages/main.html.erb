@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <h2>Welcome to Dropbox</h2>
     <% if user_signed_in? %>
-      <p class="lead">Welcome <%= current_user.email %></p>
+      <p class="lead">Welcome <%= current_user.first_name %> <%= current_user.last_name %></p>
       <a class="btn btn-default" href="/assets" role="button">Dropbox</a>
       <a class="btn btn-default" href="/pages/banking" role="button">Banking</a>
       <a class="btn btn-default" href="/users/edit" role="button">Reset Password</a>
